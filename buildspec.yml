@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo ************* Installing source NPM dependencies... *************
+      - npm install
+  build:
+    commands:
+      - echo ************* Build started *************
+      - nx build iea-apigayeway --dev
+      - nx build logger --dev
+      - nx build notification --dev
+  post_build:
+    commands:
+      - echo DONE
+
+artifacts:
+  paths:
+    - node_modules/
+    - dist/
+    - apps/iea-apigateway/DockerFile
+    - apps/logger/DockerFile
+    - apps/notification/DockerFile
+  discard-paths: no

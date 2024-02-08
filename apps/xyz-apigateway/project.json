@@ -1,0 +1,24 @@
+{
+  "name": "xyz-apigateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/xyz-apigateway/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "xyz-apigateway:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "xyz-apigateway:build:development"
+        },
+        "production": {
+          "buildTarget": "xyz-apigateway:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

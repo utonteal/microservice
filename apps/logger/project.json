@@ -1,0 +1,24 @@
+{
+  "name": "logger",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/logger/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "logger:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "logger:build:development"
+        },
+        "production": {
+          "buildTarget": "logger:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

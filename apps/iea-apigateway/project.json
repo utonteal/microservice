@@ -1,0 +1,24 @@
+{
+  "name": "iea-apigateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/iea-apigateway/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "iea-apigateway:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "iea-apigateway:build:development"
+        },
+        "production": {
+          "buildTarget": "iea-apigateway:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
