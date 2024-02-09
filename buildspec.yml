@@ -28,7 +28,7 @@ phases:
           echo Pushing $image_name Docker image to ECR...
           docker tag oneequine/$image_name:latest $ACCOUNT_URI/oneequine/$image_name:latest
           docker push $ACCOUNT_URI/oneequine/$image_name:latest
-          printf '[{"name":"'$image_name'"","imageUri":"%s"}]' $ACCOUNT_URI/oneequine/$image_name:latest > imagedefinitions_${image_name}.json
+          printf '[{"name":"'$image_name'","imageUri":"%s"}]' $ACCOUNT_URI/oneequine/$image_name:latest > imagedefinitions_${image_name}.json
         done
 
 artifacts:
