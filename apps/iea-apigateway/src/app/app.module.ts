@@ -9,13 +9,13 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     {
       name: 'NOTIFICATION',
       transport: Transport.TCP,
-      options: { host: 'localhost', port: 4000 },
+      options: { port: 4000 },
       
     },
     {
       name: 'LOGGER',
       transport: Transport.TCP,
-      options: { host: 'localhost', port: 5000 }
+      options: { port: 5000 }
     }
   ])],
   controllers: [AppController],
