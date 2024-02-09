@@ -28,9 +28,12 @@ phases:
           echo Pushing $image_name Docker image to ECR...
           docker tag oneequine/$image_name:latest $ACCOUNT_URI/oneequine/$image_name:latest
           docker push $ACCOUNT_URI/oneequine/$image_name:latest
+          printf '[{"name":$image_name,"imageUri":"%s"}]' $ACCOUNT_URI/oneequine/$image_name:latest > imagedefinitions_${image_name}.json
         done
-      - printf '[{"name":"iea-apigateway-image","imageUri":"%s"},{"name":"logger-image","imageUri":"%s"},{"name":"notification-image","imageUri":"%s"}]' "$ACCOUNT_URI/oneequine/iea-apigateway-image:latest" "$ACCOUNT_URI/oneequine/logger-image:latest" "$ACCOUNT_URI/oneequine/notification-image:latest" > imagedefinitions.json
 
 artifacts:
-    files: imagedefinitions.json
+    files: 
+       - imagedefinitions_iea-apigateway-image.json
+       - imagedefinitions_logger-image.json
+       - imagedefinitions_notification-image.json
 
