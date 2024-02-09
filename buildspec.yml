@@ -4,8 +4,8 @@ phases:
   
   pre_build:
     commands:
-      apt update
-      apt install -y docker.io
+      # Log in to Docker registry if needed
+      # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
   build:
     commands:
