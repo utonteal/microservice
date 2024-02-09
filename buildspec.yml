@@ -3,25 +3,27 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 20
+      docker: latest
+  
+  pre_build:
     commands:
-      - echo ************* Installing source NPM dependencies... *************
-      - npm install
+      # Log in to Docker registry if needed
+      # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
   build:
     commands:
-      - echo ************* Build started *************
-      - nx build iea-apigayeway --dev
-      - nx build logger --dev
-      - nx build notification --dev
+      docker build -t oneequine/iea-apigateway-image -f ./apps/iea-apigateway/Dockerfile .
+      docker build -t oneequine/logger-image -f ./apps/logger/Dockerfile .
+      docker build -t oneequine/notification-image -f ./apps/notification/Dockerfile .
+
   post_build:
     commands:
-      - echo DONE
-
-artifacts:
-  paths:
-    - node_modules/
-    - dist/
-    - apps/iea-apigateway/DockerFile
-    - apps/logger/DockerFile
-    - apps/notification/DockerFile
-  discard-paths: no
+      # Tag Push images to Docker Hub
+      docker tag oneequine/iea-apigateway-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
+      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
+      # Tag Push images to Docker Hub
+      docker tag oneequine/logger-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
+      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
+      # Tag Push images to Docker Hub
+      docker tag oneequine/notification-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest
+      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest

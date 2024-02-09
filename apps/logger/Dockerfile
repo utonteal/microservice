@@ -8,11 +8,11 @@ COPY . /app
 
 
 RUN npm install
-RUN npx nx run iea-apigateway:build --verbose
+RUN npx nx run logger:build --verbose
 
-WORKDIR /app/iea-apigateway
+WORKDIR /app/logger
 
-RUN cp -r /app/dist/apps/iea-apigateway .
+RUN cp -r /app/dist/apps/logger .
 RUN cp -r /app/node_modules .
 
 
@@ -23,4 +23,4 @@ RUN cp -r /app/node_modules .
 # ENV PORT 80
 # EXPOSE 80
 
-CMD ["node", "iea-apigateway/main.js"]
+CMD ["node", "logger/main.js"]
