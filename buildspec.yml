@@ -1,14 +1,11 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      docker: latest
   
   pre_build:
     commands:
-      # Log in to Docker registry if needed
-      # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      apt update
+      apt install -y docker.io
 
   build:
     commands:
