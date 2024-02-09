@@ -21,9 +21,7 @@ phases:
       # Tag Push images to Docker Hub
       docker tag oneequine/iea-apigateway-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
       docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
-      # Tag Push images to Docker Hub
       docker tag oneequine/logger-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
       docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
-      # Tag Push images to Docker Hub
       docker tag oneequine/notification-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest
       docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest
