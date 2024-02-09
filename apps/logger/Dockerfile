@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM public.ecr.aws/x7k6h4v4/node20-alpine:latest
 
 # Set the working directory to /app
 WORKDIR /app
