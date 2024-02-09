@@ -8,7 +8,7 @@ export class AppService {
   private readonly users: any[] = [];
 
   getData(): { message: string } {
-    return { message: 'Hello API' };
+    return { message: 'Hello API New' };
   }
 
   constructor(

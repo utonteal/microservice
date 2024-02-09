@@ -4,21 +4,36 @@ phases:
   
   pre_build:
     commands:
-      # Log in to Docker registry if needed
-      # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - ACCOUNT_URI=045113578396.dkr.ecr.us-east-1.amazonaws.com
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ACCOUNT_URI
 
   build:
     commands:
-      docker build -t oneequine/iea-apigateway-image -f ./apps/iea-apigateway/Dockerfile .
-      docker build -t oneequine/logger-image -f ./apps/logger/Dockerfile .
-      docker build -t oneequine/notification-image -f ./apps/notification/Dockerfile .
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - |
+        for app_dir in apps/iea-apigateway apps/logger apps/notification; do
+          image_name=$(basename $app_dir)
+          echo Building $image_name Docker image...
+          docker build -t oneequine/$image_name-image -f ./$app_dir/Dockerfile .
+        done
 
   post_build:
     commands:
-      # Tag Push images to Docker Hub
-      docker tag oneequine/iea-apigateway-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
-      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/iea-apigateway-image:latest
-      docker tag oneequine/logger-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
-      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/logger-image:latest
-      docker tag oneequine/notification-image:latest 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest
-      docker push 045113578396.dkr.ecr.us-east-1.amazonaws.com/oneequine/notification-image:latest
+      - echo Build completed on `date`
+      - |
+        for image_name in iea-apigateway-image logger-image notification-image; do
+          echo Pushing $image_name Docker image to ECR...
+          docker tag oneequine/$image_name:latest $ACCOUNT_URI/oneequine/$image_name:latest
+          docker push $ACCOUNT_URI/oneequine/$image_name:latest
+          printf '[{"name":$image_name,"imageUri":"%s"}]' $ACCOUNT_URI/oneequine/$image_name:latest > imagedefinitions_${image_name}.json
+        done
+
+artifacts:
+    files: 
+       - imagedefinitions_iea-apigateway-image.json
+       - imagedefinitions_logger-image.json
+       - imagedefinitions_notification-image.json
+
