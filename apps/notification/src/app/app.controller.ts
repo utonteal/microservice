@@ -18,7 +18,7 @@ export class AppController {
   @MessagePattern({ cmd: 'user_created' })
   handleUserCreated(data: CreateUserEvent) {
     console.log(data, new Date())
-    return "22"//this.appService.handleUserCreated(data)
+    return "Notification Service Called"//this.appService.handleUserCreated(data)
   }
 
 }

@@ -22,12 +22,12 @@ export class AppService {
     this.users.push(createUserRequest);
    
    
-    await lastValueFrom(this.notificationClient.send({ cmd: 'user_created' }, 
+    const res = await lastValueFrom(this.notificationClient.send({ cmd: 'user_created' }, 
     new CreateUserEvent(createUserRequest.email)));
 
 
-    console.log("jhhjkhkjjhjkhkjhkj", new Date());
-    this.loggerClient.emit('user_created', new CreateUserEvent(createUserRequest.email));
-    return "User Created";
+    // console.log("jhhjkhkjjhjkhkjhkj", new Date());
+    // this.loggerClient.emit('user_created', new CreateUserEvent(createUserRequest.email));
+    return "User Created: " + res;
   }
 }
