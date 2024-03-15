@@ -9,7 +9,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     {
       name: 'NOTIFICATION',
       transport: Transport.TCP,
-      options: { host: 'tcp://discover-notification', port: 4000 },
+      options: { host: 'discover-notification', port: 4000 },
       
     },
     {
